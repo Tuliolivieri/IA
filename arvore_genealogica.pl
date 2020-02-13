@@ -12,13 +12,16 @@ mulher(luisa).
 mulher(sueli).
 
 %relacoes
+progenitor(ana,joaquim).
 progenitor(joao,joaquim).
 progenitor(joao,luisa).
-progenitor(ana,joaquim).
-progenitor(joaquim,luis).
 progenitor(maria,luis).
+progenitor(joaquim,luis).
 progenitor(luis,flavio).
 progenitor(luisa,samuel).
 progenitor(luisa,sueli).
 progenitor(marcos,samuel).
 progenitor(marcos,sueli).
+
+irmao(X,Y) :- progenitor(Z,X), progenitor(Z,Y), X\=Y.
+tio(X,Y) :- irmao(Z,X), progenitor(Z,Y).
