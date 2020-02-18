@@ -51,4 +51,12 @@ pilotoequipe(mangold,cobra).
 pilotoequipe(jones,matador).
 pilotoequipe(bonhomme,matador).
 
+equipevence(X) :- venceu(Y,Z),pilotoequipe(Y,X),circuito(Z).
 
+%QUEM VENCEU A CORRIDA NO PORTO?
+pilotovenceuporto(X) :- venceu(X,porto), piloto(X).
+%QUAL A EQUIPE QUE GANHOU NO PORTO?
+equipevenceuporto(X) :- venceu(Y,porto), pilotoequipe(Y,X).
+%QUAIS OS PILOTOS QUE VENCERAM MAIS DE UM CIRCUITO?
+%QUE CIRCUITOS TEM MAIS DE 8 GATES?
+%QUE PILOTOS NÃO PILOTAM UM EDGE540?
