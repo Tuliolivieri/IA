@@ -1,39 +1,36 @@
-%Desenvolva em Prolog a Base de Conhecimento que resolva o seguinte problema:
-
-% A função do consultor é ajudar um usuário a decidir se ele deve
-% investir em uma conta de poupança ou no mercado de ações. Alguns
-% investidores podem desejar dividir o seu dinheiro entre as duas opções.
-
-% O investimento que será recomendado para um determinado investidor
-% depende de sua renda e da sua quantia atual em poupança, de acordo com
-% os seguintes critérios:
-% - Indivíduos com uma conta de poupança inadequada devem sempre, como
-% prioridade mais alta, aumentar a quantia poupada, independentemente de
-% sua renda;
-% - Indivíduos com uma conta de poupança adequada e uma renda adequada
-% deveriam considerar um investimento mais arriscado, mas potencialmente
-% mais lucrativo, no mercado de ações;
-% - Indivíduos com uma renda pequena que já tenham uma conta de poupança
-% adequada podem desejar dividir a sua renda excedente entre poupança e
-% ações (combinação).
+% TULIO PAULUCCI OLIVIERI - 101629230
+% FELIPE PERUCHI SIMOES   - 101628633
 %
-% A adequação entre poupança e renda é determinada pelo número de
-% descendentes que um indivíduo mantém. Pela nossa regra, para uma
-% poupança adequada, o indivíduo deve ter no mínimo R$5.000,00 no banco
-% para cada dependente. Uma renda adequada deve ser estável e fornecer ao
-% menos R$15.000,00 ao ano, mais um adicional de R$4.000,00 por cada
-% dependente.
-
-%Dada a descrição acima, execute as seguintes tarefas:
-
+% CONSULTOR
+%
 % 1 - Faça um programa em Prolog para implementação do consultor
 % financeiro.
 %Lembre-se das regras para recomendação de investimento.
 %conta de poupança inadequada -> poupança;
 %conta de poupança adequada e uma renda adequada -> ações;
 %renda pequena e conta de poupança adequada -> poupança e ações
-
+%
 % 2 - Realize uma consulta em Prolog para a pergunta: Qual deve ser o
 % investimento recomendado para um investidor que possui uma quantia
 % poupada de R$22.000,00, uma renda estável de R$25.000,00 ao ano, e três
-% dependentes?
+% dependentes
+
+
+poupanca_adequada(Poupanca):- Poupanca > 5000.
+
+renda_adequada(Renda, Dependentes):- (Renda * 12) > (15000 + Dependentes * 4000).
+
+investir_poupanca(Poupanca):- not(poupanca_adequada(Poupanca)),
+    write('Investir Poupanca').
+
+investir_acoes(Poupanca, Renda, Dependentes):- poupanca_adequada(Poupanca),
+    renda_adequada(Renda, Dependentes),
+    write('Investir Acoes').
+
+investir_ambos(Poupanca, Renda, Dependentes):- poupanca_adequada(Poupanca),
+    not(renda_adequada(Renda, Dependentes)),
+    write('Investir Poupanca e Acoes').
+
+investir(Poupanca, Renda, Dependentes):- investir_poupanca(Poupanca);
+    investir_acoes(Poupanca, Renda, Dependentes);
+    investir_ambos(Poupanca, Renda, Dependentes).
